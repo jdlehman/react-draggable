@@ -77,16 +77,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		};
 	}
 	
-	function canDragY(draggable) {
-		return draggable.props.axis === 'both' ||
-				draggable.props.axis === 'y';
-	}
-	
-	function canDragX(draggable) {
-		return draggable.props.axis === 'both' ||
-				draggable.props.axis === 'x';
-	}
-	
 	function isFunction(func) {
 	  return typeof func === 'function' || Object.prototype.toString.call(func) === '[object Function]'
 	}
@@ -152,7 +142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * get {clientX, clientY} positions of control
 	 * */
 	function getControlPosition(e) {
-	  var position = !isTouchDevice ? e : e.touches[0];
+	  var position = (e.touches && e.touches[0]) || e;
 	  return {
 	    clientX: position.clientX,
 	    clientY: position.clientY
@@ -279,25 +269,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			start: React.PropTypes.object,
 	
 			/**
-			 * `zIndex` specifies the zIndex to use while dragging.
-			 *
-			 * Example:
-			 *
-			 * ```jsx
-			 * 	var App = React.createClass({
-			 * 	    render: function () {
-			 * 	        return (
-			 * 	            <Draggable zIndex={100}>
-			 * 	                <div>I have a zIndex</div>
-			 * 	            </Draggable>
-			 * 	        );
-			 * 	    }
-			 * 	});
-			 * ```
-			 */
-			zIndex: React.PropTypes.number,
-	
-			/**
 			 * Called when dragging starts.
 			 *
 			 * Example:
@@ -372,7 +343,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 		getDefaultProps: function () {
 			return {
-				axis: 'both',
 				handle: null,
 				cancel: null,
 				grid: null,
@@ -380,7 +350,6 @@ return /******/ (function(modules) { // webpackBootstrap
 					x: 0,
 					y: 0
 				},
-				zIndex: NaN,
 				onStart: emptyFunction,
 				onDrag: emptyFunction,
 				onStop: emptyFunction,
@@ -493,23 +462,6 @@ return /******/ (function(modules) { // webpackBootstrap
 		},
 	
 		render: function () {
-			var style = {
-				// Set top if vertical drag is enabled
-				top: canDragY(this)
-					? this.state.clientY
-					: this.state.startY,
-	
-				// Set left if horizontal drag is enabled
-				left: canDragX(this)
-					? this.state.clientX
-					: this.state.startX
-			};
-	
-			// Set zIndex if currently dragging and prop has been provided
-			if (this.state.dragging && !isNaN(this.props.zIndex)) {
-				style.zIndex = this.props.zIndex;
-			}
-			
 			var className = CX({
 				'react-draggable': true,
 				'react-draggable-dragging': this.state.dragging
@@ -517,7 +469,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			// Reuse the child provided
 			// This makes it flexible to use whatever element is wanted (div, ul, etc)
 			return React.addons.cloneWithProps(React.Children.only(this.props.children), {
-				style: style,
 				className: className,
 	
 				onMouseDown: this.handleDragStart,

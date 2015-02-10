@@ -43,11 +43,6 @@ var App = React.createClass({
 			// to whatever element is supplied as `this.props.children`.
 			// Only a single element is allowed or an Error will be thrown.
 			//
-			// `axis` determines which axis the draggable can move.
-			// - 'both' allows movement horizontally and vertically (default).
-			// - 'x' limits movement to horizontal axis.
-			// - 'y' limits movement to vertical axis.
-			//
 			// `handle` specifies a selector to be used as the handle that initiates drag.
 			//
 			// `cancel` specifies a selector to be used to prevent drag initialization.
@@ -56,8 +51,6 @@ var App = React.createClass({
 			//
 			// `start` specifies the x and y that the dragged item should start at
 			//
-			// `zIndex` specifies the zIndex to use while dragging.
-			//
 			// `onStart` is called when dragging starts.
 			//
 			// `onDrag` is called while dragging.
@@ -65,11 +58,9 @@ var App = React.createClass({
 			// `onStop` is called when dragging stops.
 
 			<Draggable
-				axis="x"
 				handle=".handle"
 				grid={[25, 25]}
 				start={{x: 25, y: 25}}
-				zIndex={100}
 				onStart={this.handleStart}
 				onDrag={this.handleDrag}
 				onStop={this.handleStop}>

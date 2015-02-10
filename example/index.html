@@ -76,28 +76,19 @@
           <p>
             <a href="https://github.com/mzabriskie/react-draggable/blob/master/example/index.html">Demo Source</a>
           </p>
-          <Draggable zIndex={100}>
-            <div className="box">I can be dragged anywhere</div>
-          </Draggable>
-          <Draggable axis="x" zIndex={100}>
-            <div className="box cursor-x">I can only be dragged horizonally</div>
-          </Draggable>
-          <Draggable axis="y" zIndex={100}>
-            <div className="box cursor-y">I can only be dragged vertically</div>
-          </Draggable>
-          <Draggable onDrag={this.handleDrag} zIndex={100}>
+          <Draggable onDrag={this.handleDrag}>
             <div className="box">
               <div>I track my position</div>
               <div>top: {this.state.position.top}, left: {this.state.position.left}</div>
             </div>
           </Draggable>
-          <Draggable handle="strong" zIndex={100}>
+          <Draggable handle="strong">
             <div className="box no-cursor">
               <strong className="cursor">Drag here</strong>
               <div>You must click my handle to drag me</div>
             </div>
           </Draggable>
-          <Draggable cancel="strong" zIndex={100}>
+          <Draggable cancel="strong">
             <div className="box">
               <strong className="no-cursor">Can't drag here</strong>
               <div>Dragging here works</div>

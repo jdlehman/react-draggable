@@ -8,10 +8,8 @@ describe('react-draggable', function () {
 		it('should have default properties', function () {
 			var drag = TestUtils.renderIntoDocument(<Draggable><div/></Draggable>);
 
-			expect(drag.props.axis).toEqual('both');
 			expect(drag.props.handle).toEqual(null);
 			expect(drag.props.cancel).toEqual(null);
-			expect(isNaN(drag.props.zIndex)).toEqual(true);
 			expect(typeof drag.props.onStart).toEqual('function');
 			expect(typeof drag.props.onDrag).toEqual('function');
 			expect(typeof drag.props.onStop).toEqual('function');
@@ -24,11 +22,9 @@ describe('react-draggable', function () {
 
 			var drag = TestUtils.renderIntoDocument(
 				<Draggable
-					axis="y"
 					handle=".handle"
 					cancel=".cancel"
 					grid={[10, 10]}
-					zIndex={1000}
 					onStart={handleStart}
 					onDrag={handleDrag}
 					onStop={handleStop}>
@@ -39,11 +35,9 @@ describe('react-draggable', function () {
 				</Draggable>
 			);
 
-			expect(drag.props.axis).toEqual('y');
 			expect(drag.props.handle).toEqual('.handle');
 			expect(drag.props.cancel).toEqual('.cancel');
 			expect(drag.props.grid).toEqual([10, 10]);
-			expect(drag.props.zIndex).toEqual(1000);
 			expect(drag.props.onStart).toEqual(handleStart);
 			expect(drag.props.onDrag).toEqual(handleDrag);
 			expect(drag.props.onStop).toEqual(handleStop);
